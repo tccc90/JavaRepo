@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Javascript Playground </title>
+</head>
+<body>
+	<h1>This page is embeded with Javascript for testing.</h1>
+	<!-- <script type="text/javascript" src="FileAPI.js" )></script> -->
+
+<!-- <input type="file" id="files" name="files[]" multiple /> -->
+<!-- <output id="list"></output> -->
+
+<button onclick="submit()"> Post </button>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	//User input file selection
+		// Event handler file selection
+		// document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+	 //    function handleFileSelect(evt) {
+		// 	var output=readFileInfo(evt.target.files);
+		// 	document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+	 //  	}
+ 
+ 	
+ 	var json=JSON.stringify(JSON.parse(loadFile("Product.json")));
+ 	var userID="charles90"
+	var apiKey="f8ef2f91-b91d-4b3f-b5b8-ed98543c60ed"
+ 	var URL="https://members.lelong.com.my/Auc/Member/Feed/feed.asp"
+ 	var sURL
+ 	sURL=URL + "?"
+ 	sURL=sURL+"userID="+userID+"&"
+ 	sURL=sURL+"Key="+apiKey+"&"
+ 	sURL=sURL+"Product="+json
+
+	function submit(){
+		// alert("You have just clicked me")
+		window.open(sURL)	
+	}
+
+// auxillary functions below
+	function loadFile(filePath) {
+		var result = null;
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", filePath, false);
+		xmlhttp.send();
+		if (xmlhttp.status==200) {
+	  		result = xmlhttp.responseText;
+		}
+		return result;
+	} //loadFile end
+
+	function readFileInfo(files) {
+	    // var files = evt.target.files; // FileList object
+
+	    // files is a FileList of File objects. List some properties.
+	    var output = [];
+	    for (var i = 0, f; f = files[i]; i++) {
+	      //string concatenation to disploay files[i] info
+	      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+	                  f.size, ' bytes, last modified: ',
+	                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+	                  '</li>');
+    	} //next i
+	    return output
+	} // readFileInfo end
+ </script>
+
+</body>
+</html>
